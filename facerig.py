@@ -115,9 +115,15 @@ def add_drivers(drivers, mb_name):
         for var in variables:
             create_variable(var, driver, mb_name)
 
-def add_facs_drivers(skd, mesh):
+def add_facs_drivers(skd, rig_name, mesh):
     au_div = skd['Divisor']['au_value']
     gz_div = skd['Divisor']['gz_value']
+
+    rig = algorithms.get_object_by_name(rig_name)
+    if not rig:
+        logger.critical("Can't find %s. Delete rigs manually", rig_name)
+        raise ValueError('FACS Rig setup failed')
+        return
 
     mname = mesh.name
 
@@ -126,11 +132,7 @@ def add_facs_drivers(skd, mesh):
             continue
 
         # get the object
-        slider = "facs_rig_slider_"+au+"."+mname
-        slider_obj = bpy.data.objects.get(slider)
-        if not slider_obj:
-            logger.critical("%s slider controller not found", slider)
-            continue
+        bone_name = "facs_rig_slider_"+au
 
         # iterate over all the expressions which are part of this AU
         for skn, skv in exprs.items():
@@ -160,9 +162,10 @@ def add_facs_drivers(skd, mesh):
             v.name = au
             v.type = 'TRANSFORMS'
             # we have one target by default
-            v.targets[0].id = slider_obj
+            v.targets[0].id = rig
             v.targets[0].transform_space = 'LOCAL_SPACE'
             v.targets[0].transform_type = 'LOC_X'
+            v.targets[0].bone_target = bone_name
 
             # append to the existing expression
             # max_slider_value * constant = max_shape_key_value
@@ -219,6 +222,7 @@ def rename_object_in_collection(c, orig, new):
 def get_root_bone(armat, root):
     armat.select_set(True)
     bpy.context.view_layer.objects.active = armat
+    #bpy.ops.object.mode_set(mode='OBJECT')
     bpy.ops.object.mode_set(mode='POSE')
     for b in bpy.context.object.pose.bones:
         if b.name == root:
@@ -338,6 +342,8 @@ def rename_facs_objs(c, post):
 def setup_facs_rig(obj):
     # check if the facs rig is already imported
     facs_rig_collName = 'Facs_Rig.'+obj.name
+    facs_rig_name = "MBLab_skeleton_facs_rig"+obj.name
+    facs_rig_fname = "facs_rig_frame"+obj.name
     layerColl = find_collLayer(bpy.context.view_layer.layer_collection,
                                facs_rig_collName)
     # check if the face rig is already imported
@@ -361,7 +367,8 @@ def setup_facs_rig(obj):
         logger.critical("FACS Rig broken. Manually delete")
         return False
     rename_collection(facs_coll, facs_rig_collName)
-    rename_facs_objs(facs_coll, obj.name)
+    rename_object_in_collection(facs_coll, "MBLab_skeleton_facs_rig", facs_rig_name)
+    rename_object_in_collection(facs_coll, "facs_rig_frame", facs_rig_fname)
 
     # load face rig json file
     json_file = os.path.join(data_path, "face_rig", "facs_au.json")
@@ -373,7 +380,7 @@ def setup_facs_rig(obj):
     with open(json_file, 'r') as f:
         shape_keys = json.load(f)
         try:
-            add_facs_drivers(shape_keys, obj)
+            add_facs_drivers(shape_keys, facs_rig_name, obj)
         except Exception as e:
             traceback.print_stack()
             logger.critical("%s".str(e))
@@ -384,15 +391,15 @@ def setup_facs_rig(obj):
         return True
 
     facs_frame = \
-        algorithms.get_object_by_name('facs_rig_frame.'+obj.name)
+        algorithms.get_object_by_name(facs_rig_fname)
     if not facs_frame:
         logger.critical("FACS frame %s not found",
             'facs_rig_frame.'+obj.name)
         return True
 
-    facs_frame.location[0] = root_x + 0.5
-    facs_frame.location[1] = -root_y
-    facs_frame.location[2] = -root_z + facs_frame.location[2]
+    #facs_frame.location[0] = root_x + 0.5
+    #facs_frame.location[1] = -root_y
+    #facs_frame.location[2] = -root_z + facs_frame.location[2]
 
     return True
 
