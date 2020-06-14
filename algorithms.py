@@ -29,7 +29,7 @@ import os
 import json
 import array
 
-import mathutils
+import mathutils, numpy
 import bpy
 
 from .utils import get_object_parent
@@ -1455,3 +1455,36 @@ def get_object_groups(obj):
                 pass
         obj_groups[grp.name] = weights
     return obj_groups
+
+def are_points_different(point_a, point_b):
+    #compare 2 lists ( under form [a, b, c, n...] )
+    #NO security...
+    for i in range(len(point_a)):
+        if point_a[i] != point_b[i]:
+            return True
+    return False
+
+def subtract_vertices_lists(list_a, list_b):
+    #Subtract content of list_b by list_a
+    list_a = numpy.around(list_a, decimals=4).tolist()
+    list_b = numpy.around(list_b, decimals=4).tolist()
+    length = len(list_a)
+    if length != len(list_b) or not are_points_different(list_a, list_b):
+        return []
+    return_list = [0]*3
+    for i in range(length):
+        return_list[i] = list_b[i] - list_a[i]
+    return numpy.around(return_list, decimals=4).tolist()
+
+def subtract_with_index(list_a, list_b):
+    length = len(list_a)
+    if length == 0 or length != len(list_b):
+        return []
+    return_list = []
+    for i in range(length):
+        subtract = subtract_vertices_lists(list_a[i], list_b[i])
+        if len(subtract) > 0:
+            subtract[0:0] = [i] 
+            return_list.append(subtract)
+    return return_list
+

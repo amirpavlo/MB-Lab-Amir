@@ -426,9 +426,9 @@ class Humanoid:
 
     def update_displacement(self):
         obj = self.get_object()
-        age_factor = obj.character_age
-        tone_factor = obj.character_tone
-        mass_factor = obj.character_mass
+        age_factor = max(min(1, obj.character_age), -1)
+        tone_factor = max(min(1, obj.character_tone), -1)
+        mass_factor = max(min(1, obj.character_mass), -1)
         self.mat_engine.calculate_displacement_texture(age_factor,tone_factor,mass_factor)
 
     def remove_modifiers(self):

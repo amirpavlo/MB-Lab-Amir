@@ -29,7 +29,7 @@ import mathutils
 
 from . import algorithms, proxyengine
 
-import time, json
+import time, json, glob
 import operator
 
 logger = logging.getLogger(__name__)
@@ -150,6 +150,15 @@ class MorphingEngine:
         if self.obj_name in bpy.data.objects:
             return bpy.data.objects[self.obj_name]
         return None
+
+    def get_expressions_file(self):
+        return os.path.join(algorithms.get_data_path(), "expressions_morphs",
+                            self.expressions_filename)
+
+    def get_all_expressions_files(self):
+        file_filter = os.path.join(algorithms.get_data_path(),
+                                   "expressions_morphs", "*.json")
+        return glob.glob(file_filter)
 
     def error_msg(self, path):
         logger.warning("Database file not found: {0}".format(algorithms.simple_path(path)))
