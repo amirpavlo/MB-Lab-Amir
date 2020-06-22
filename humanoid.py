@@ -312,6 +312,12 @@ class Humanoid:
         """
         components = morph_name.split("_")
         if components[0][:4] not in self.no_categories:
+            if len(components) > 3:
+                subset = components[1:len(components)]
+                joined = ''
+                for s in subset:
+                    joined += s
+                components = [components[0], joined, components[-1]]
             if len(components) == 3:
                 category_name = components[0]
                 if category_name not in self.categories:

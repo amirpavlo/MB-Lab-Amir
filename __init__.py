@@ -1768,7 +1768,7 @@ Morphs will be available next time you create same character type'
                     return {'FINISHED'}
                 basis_found = True
                 continue
-            if key.name in expression_keys and not mblab_override_expressions:
+            if key.name in expression_keys and not bpy.context.scene.mblab_override_expressions:
                 self.ShowMessageBox("Shape key %s already exists. Aborting operation" % key.name, "Error", 'ERROR')
                 return {'FINISHED'}
         if not basis_found:

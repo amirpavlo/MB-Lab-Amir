@@ -4102,7 +4102,7 @@
         "hide": false,
         "lock": false,
         "mute": false,
-        "select": true,
+        "select": false,
         "modifiers": [
             {
                 "active": true,
@@ -4153,6 +4153,294 @@
                             "transform_space": "LOCAL_SPACE",
                             "transform_type": "ROT_Z",
                             "bone_target": "ph_WQ"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "driver76": {
+        "data_path": "key_blocks[\"Expressions_upper_lip_curl.L\"].value",
+        "hide": false,
+        "lock": false,
+        "mute": false,
+        "select": false,
+        "modifiers": [
+            {
+                "active": true,
+                "blend_in": 0.0,
+                "blend_out": 0.0,
+                "influence": 1.0,
+                "mode": "POLYNOMIAL",
+                "mute": false,
+                "poly_order": 1,
+                "type": "GENERATOR",
+                "use_additive": false,
+                "use_influence": false,
+                "coefficients": [
+                    0.0,
+                    1.0
+                ]
+            }
+        ],
+        "driver": {
+            "expression": "(var*1.8)",
+            "is_simple_expression": true,
+            "is_valid": true,
+            "type": "SCRIPTED",
+            "use_self": false,
+            "variables": [
+                {
+                    "name": "var",
+                    "is_name_valid": true,
+                    "type": "TRANSFORMS",
+                    "targets": [
+                        {
+                            "id_type": "OBJECT",
+                            "id_name": "MBLab_skeleton_face_rig",
+                            "transform_space": "LOCAL_SPACE",
+                            "transform_type": "ROT_X",
+                            "bone_target": "Expressions_upper_lip_curl.L"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "driver77": {
+        "data_path": "key_blocks[\"Expressions_upper_lip_curl.R\"].value",
+        "hide": false,
+        "lock": false,
+        "mute": false,
+        "select": false,
+        "modifiers": [
+            {
+                "active": true,
+                "blend_in": 0.0,
+                "blend_out": 0.0,
+                "influence": 1.0,
+                "mode": "POLYNOMIAL",
+                "mute": false,
+                "poly_order": 1,
+                "type": "GENERATOR",
+                "use_additive": false,
+                "use_influence": false,
+                "coefficients": [
+                    0.0,
+                    1.0
+                ]
+            }
+        ],
+        "driver": {
+            "expression": "(-var*1.8)",
+            "is_simple_expression": true,
+            "is_valid": true,
+            "type": "SCRIPTED",
+            "use_self": false,
+            "variables": [
+                {
+                    "name": "var",
+                    "is_name_valid": true,
+                    "type": "TRANSFORMS",
+                    "targets": [
+                        {
+                            "id_type": "OBJECT",
+                            "id_name": "MBLab_skeleton_face_rig",
+                            "transform_space": "LOCAL_SPACE",
+                            "transform_type": "ROT_X",
+                            "bone_target": "Expressions_upper_lip_curl.R"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "driver78": {
+        "data_path": "key_blocks[\"Expressions_lower_lip_stretch.L\"].value",
+        "hide": false,
+        "lock": false,
+        "mute": false,
+        "select": false,
+        "modifiers": [
+            {
+                "active": true,
+                "blend_in": 0.0,
+                "blend_out": 0.0,
+                "influence": 1.0,
+                "mode": "POLYNOMIAL",
+                "mute": false,
+                "poly_order": 1,
+                "type": "GENERATOR",
+                "use_additive": false,
+                "use_influence": false,
+                "coefficients": [
+                    0.0,
+                    1.0
+                ]
+            }
+        ],
+        "driver": {
+            "expression": "(-var*1.7688)",
+            "is_simple_expression": true,
+            "is_valid": true,
+            "type": "SCRIPTED",
+            "use_self": true,
+            "variables": [
+                {
+                    "name": "var",
+                    "is_name_valid": true,
+                    "type": "TRANSFORMS",
+                    "targets": [
+                        {
+                            "id_type": "OBJECT",
+                            "id_name": "MBLab_skeleton_face_rig",
+                            "transform_space": "LOCAL_SPACE",
+                            "transform_type": "ROT_X",
+                            "bone_target": "Expressions_lower_lip_stretch.L"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "driver79": {
+        "data_path": "key_blocks[\"Expressions_lower_lip_stretch.R\"].value",
+        "hide": false,
+        "lock": false,
+        "mute": false,
+        "select": false,
+        "modifiers": [
+            {
+                "active": true,
+                "blend_in": 0.0,
+                "blend_out": 0.0,
+                "influence": 1.0,
+                "mode": "POLYNOMIAL",
+                "mute": false,
+                "poly_order": 1,
+                "type": "GENERATOR",
+                "use_additive": false,
+                "use_influence": false,
+                "coefficients": [
+                    0.0,
+                    1.0
+                ]
+            }
+        ],
+        "driver": {
+            "expression": "(var*1.7688)",
+            "is_simple_expression": true,
+            "is_valid": true,
+            "type": "SCRIPTED",
+            "use_self": true,
+            "variables": [
+                {
+                    "name": "var",
+                    "is_name_valid": true,
+                    "type": "TRANSFORMS",
+                    "targets": [
+                        {
+                            "id_type": "OBJECT",
+                            "id_name": "MBLab_skeleton_face_rig",
+                            "transform_space": "LOCAL_SPACE",
+                            "transform_type": "ROT_X",
+                            "bone_target": "Expressions_lower_lip_stretch.R"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "driver80": {
+        "data_path": "key_blocks[\"Expressions_lower_lip_curl.L\"].value",
+        "hide": false,
+        "lock": false,
+        "mute": false,
+        "select": false,
+        "modifiers": [
+            {
+                "active": true,
+                "blend_in": 0.0,
+                "blend_out": 0.0,
+                "influence": 1.0,
+                "mode": "POLYNOMIAL",
+                "mute": false,
+                "poly_order": 1,
+                "type": "GENERATOR",
+                "use_additive": false,
+                "use_influence": false,
+                "coefficients": [
+                    0.0,
+                    1.0
+                ]
+            }
+        ],
+        "driver": {
+            "expression": "(-var*1.7688)",
+            "is_simple_expression": true,
+            "is_valid": true,
+            "type": "SCRIPTED",
+            "use_self": true,
+            "variables": [
+                {
+                    "name": "var",
+                    "is_name_valid": true,
+                    "type": "TRANSFORMS",
+                    "targets": [
+                        {
+                            "id_type": "OBJECT",
+                            "id_name": "MBLab_skeleton_face_rig",
+                            "transform_space": "LOCAL_SPACE",
+                            "transform_type": "ROT_X",
+                            "bone_target": "Expressions_lower_lip_curl.L"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "driver81": {
+        "data_path": "key_blocks[\"Expressions_lower_lip_curl.R\"].value",
+        "hide": false,
+        "lock": false,
+        "mute": false,
+        "select": false,
+        "modifiers": [
+            {
+                "active": true,
+                "blend_in": 0.0,
+                "blend_out": 0.0,
+                "influence": 1.0,
+                "mode": "POLYNOMIAL",
+                "mute": false,
+                "poly_order": 1,
+                "type": "GENERATOR",
+                "use_additive": false,
+                "use_influence": false,
+                "coefficients": [
+                    0.0,
+                    1.0
+                ]
+            }
+        ],
+        "driver": {
+            "expression": "(var*1.7688)",
+            "is_simple_expression": true,
+            "is_valid": true,
+            "type": "SCRIPTED",
+            "use_self": true,
+            "variables": [
+                {
+                    "name": "var",
+                    "is_name_valid": true,
+                    "type": "TRANSFORMS",
+                    "targets": [
+                        {
+                            "id_type": "OBJECT",
+                            "id_name": "MBLab_skeleton_face_rig",
+                            "transform_space": "LOCAL_SPACE",
+                            "transform_type": "ROT_X",
+                            "bone_target": "Expressions_lower_lip_curl.R"
                         }
                     ]
                 }
