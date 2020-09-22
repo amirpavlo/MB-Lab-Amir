@@ -25,7 +25,7 @@ import logging
 
 import time, ntpath
 import json
-import os
+import os, re, fnmatch
 
 import bpy
 from bpy.app.handlers import persistent
@@ -42,11 +42,11 @@ from . import addon_updater_ops
 logger = logging.getLogger(__name__)
 
 bl_info = {
-    "name": "MB-Lab",
+    "name": "MBA-Lab",
     "author": "Manuel Bastioni, MB-Lab Community",
     "version": (1, 7, 5),
     "blender": (2, 80, 74),
-    "location": "View3D > Tools > MB-Lab",
+    "location": "View3D > Tools > MBA-Lab",
     "description": "A complete lab for character creation",
     "warning": "Developmental",
     'wiki_url': "https://github.com/animate1978/MB-Lab/wiki",
@@ -468,11 +468,18 @@ def get_character_items(self, context):
                 items.append((obj.name, obj.name, obj.name))
     return items
 
+def match_pattern(name, ptrn):
+    ptrn_lst = re.split('; |, ',ptrn)
+    for p in ptrn_lst:
+        if fnmatch.fnmatch(name, p):
+            return True
+    return False
 
 def get_proxy_items(self, context):
     items = []
     for obj in bpy.data.objects:
-        if obj.type == 'MESH':
+        if obj.type == 'MESH' and \
+            not match_pattern(obj.name, bpy.context.scene.mblab_proxy_name_exclude):
             if algorithms.get_template_model(obj) is None:
                 items.append((obj.name, obj.name, obj.name))
     if len(items) == 0:
@@ -511,6 +518,11 @@ bpy.types.Scene.mblab_fitref_name = bpy.props.EnumProperty(
 bpy.types.Scene.mblab_proxy_name = bpy.props.EnumProperty(
     items=get_proxy_items,
     name="Proxy")
+
+bpy.types.Scene.mblab_proxy_name_exclude = bpy.props.StringProperty(
+    name="Exclude",
+    description="Any object name matching the pattern will be excluded from the proxy list",
+    default='')
 
 bpy.types.Scene.mblab_final_prefix = bpy.props.StringProperty(
     name="Prefix",
@@ -2005,12 +2017,12 @@ class LoadTemplate(bpy.types.Operator):
         return {'FINISHED'}
 
 class VIEW3D_PT_tools_MBExpressions(bpy.types.Panel):
-    bl_label = "MB-Lab Expressions"
+    bl_label = "MBA-Lab Expressions"
     bl_idname = "OBJECT_PT_characters02"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     # bl_context = 'objectmode'
-    bl_category = "MB-Lab"
+    bl_category = "MBA-Lab"
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
@@ -2031,7 +2043,7 @@ class VIEW3D_PT_tools_ManuelbastioniLAB(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     # bl_context = 'objectmode'
-    bl_category = "MB-Lab"
+    bl_category = "MBA-Lab"
 
     @classmethod
     def poll(cls, context):
@@ -2125,6 +2137,7 @@ class VIEW3D_PT_tools_ManuelbastioniLAB(bpy.types.Panel):
                 box.label(text="Please select character and proxy:")
                 box.prop(scn, 'mblab_fitref_name')
                 box.prop(scn, 'mblab_proxy_name')
+                box.prop(scn, 'mblab_proxy_name_exclude')
                 if fitting_status == "NO_REFERENCE":
                     # box.enabled = False
                     box.label(text="Character not valid.", icon="ERROR")
