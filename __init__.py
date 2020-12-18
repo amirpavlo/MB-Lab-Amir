@@ -2030,12 +2030,12 @@ class VIEW3D_PT_tools_MBExpressions(bpy.types.Panel):
         return context.mode in {'OBJECT', 'POSE'}
 
     def draw(self, context):
-        if gui_status == "ACTIVE_SESSION":
-            scn = bpy.context.scene
-            box = self.layout.box()
-            box.operator('mbexpressions.button_import_shape_keys', icon='IMPORT')
-            box.prop(scn, "mblab_copy_to_all_phenotype")
-            box.prop(scn, "mblab_override_expressions")
+       # if gui_status == "ACTIVE_SESSION":
+        scn = bpy.context.scene
+        box = self.layout.box()
+        box.operator('mbexpressions.button_import_shape_keys', icon='IMPORT')
+        box.prop(scn, "mblab_copy_to_all_phenotype")
+        box.prop(scn, "mblab_override_expressions")
 
 class VIEW3D_PT_tools_ManuelbastioniLAB(bpy.types.Panel):
     bl_label = "MB-Lab {0}.{1}.{2}".format(bl_info["version"][0], bl_info["version"][1], bl_info["version"][2])
